@@ -1,17 +1,14 @@
-name: Redis container example
-on: push
-
+name: Check system info
+on:
+  push:
 jobs:
-  # Label of the container job
-  container-job:
-    # Containers must run in Linux based operating systems
+  testbox:
     runs-on: ubuntu-latest
-    # Docker Hub image that `container-job` executes in
-    container: node:10.18-jessie
-
-    # Service containers to run with `container-job`
-    services:
-      # Label used to access the service container
-      redis:
-        # Docker Hub image
-        image: redis
+    container:
+      image: azul/zulu-openjdk-alpine:8-jre
+    steps:  
+    - uses: actions/checkout@v2
+    - name: What OS is running
+      run: uname -a
+    - name: What java version do we have
+      run: java -version
